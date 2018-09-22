@@ -202,7 +202,7 @@ void AVLNode::fixHightUpwards(void){
   }
   else if(rightChild == nullptr){
     currentNode->m_Hight = leftChild->m_Hight +1;
-    if(parent != nullptr)
+    if(parent != nullptr) //Think About this.nullptr)
       parent->fixHightUpwards();
   }
   else{
@@ -216,7 +216,7 @@ void AVLNode::fixHightUpwards(void){
 AVLNode * AVLNode::BST_Insert(NameAndID i_NameAndID){
   AVLNode * insertedNode;
 
-  if(this->m_NameAndID.Cedula <= i_NameAndID.Cedula){
+  if(this->m_NameAndID.Cedula >= i_NameAndID.Cedula){
     if(this->m_pLeftChild == nullptr){
       insertedNode = new AVLNode(i_NameAndID, this);
       this->m_pLeftChild = insertedNode;
@@ -233,16 +233,20 @@ AVLNode * AVLNode::BST_Insert(NameAndID i_NameAndID){
       this->fixHightUpwards();
     }
     else{
-      insertedNode = this->m_pLeftChild->BST_Insert(i_NameAndID);
+      insertedNode = this->m_pRightChild->BST_Insert(i_NameAndID);
     }
   }
   return insertedNode;
 }
 bool AVLNode::CheckUnbalance(){
-  uint64_t leftHight = this->m_pLeftChild->m_Hight;
-  uint64_t rightHight = this->m_pRightChild->m_Hight;
-  int64_t HightDiff = leftHight - rightHight;
+  int64_t leftHight;
+  int64_t rightHight;
+  int64_t HightDiff;
+  leftHight = this->m_pLeftChild == nullptr ? -1 : this->m_pLeftChild->m_Hight;
+  rightHight = this->m_pRightChild == nullptr ? -1 : this->m_pRightChild->m_Hight;
+  HightDiff = leftHight - rightHight;
   bool unbalance = true;
+
   if(HightDiff == 0 || HightDiff == 1 || HightDiff == -1)
     unbalance = false;
   return unbalance;
@@ -254,12 +258,11 @@ AVLNode * AVLNode::AVL_SearchUnbalanced(Direction * o_aDirection){
   Route lastRoutes[2];
   bool unbalancedFound = false;
 
-  if(this->m_Hight != 0){
-    currentNode = this->m_pParent;
-    lastNode = this;
-  }
+  currentNode = this->m_pParent;
+  lastNode = this;
+
   while(!unbalancedFound){
-    if(currentNode->m_Hight != 0){
+    if(currentNode != nullptr){
       lastRoutes[0] = lastRoutes[1];
       unbalancedFound = currentNode->CheckUnbalance();
       if(currentNode->m_pLeftChild == lastNode){
@@ -276,7 +279,6 @@ AVLNode * AVLNode::AVL_SearchUnbalanced(Direction * o_aDirection){
       }
     }
     else{
-      currentNode = nullptr;
       unbalancedFound = true;
     }
   }
@@ -284,9 +286,9 @@ AVLNode * AVLNode::AVL_SearchUnbalanced(Direction * o_aDirection){
     if(lastRoutes[0] == LEFT && lastRoutes[1] == LEFT)
       *o_aDirection = LEFTLEFT;
     else if(lastRoutes[0] == LEFT && lastRoutes[1] == RIGHT)
-      *o_aDirection = LEFTRIGHT;
-    else if(lastRoutes[0] == RIGHT && lastRoutes[1] == LEFT)
       *o_aDirection = RIGHTLEFT;
+    else if(lastRoutes[0] == RIGHT && lastRoutes[1] == LEFT)
+      *o_aDirection = LEFTRIGHT;
     else if(lastRoutes[0] == RIGHT && lastRoutes[1] == RIGHT)
       *o_aDirection = RIGHTRIGHT;
   }
@@ -313,44 +315,61 @@ void AVLNode::RotateNode(Direction i_direction){
 //! Nomenclature based on https://www.geeksforgeeks.org/avl-tree-set-1-insertion/
 void AVLNode::RightRotate(void){
   AVLNode * z = this;
-  AVLNode * y = z->m_pLeftChild;
-  AVLNode * x = y->m_pLeftChild;
-  AVLNode * T1 = x->m_pLeftChild;
-  AVLNode * T2 = x->m_pRightChild;
-  AVLNode * T3 = y->m_pRightChild;
-  AVLNode * T4 = z->m_pRightChild;
+  AVLNode * y = nullptr;
+  AVLNode * x = nullptr;
+  AVLNode * T1 = nullptr;
+  AVLNode * T2 = nullptr;
+  AVLNode * T3 = nullptr;
+  AVLNode * T4 = nullptr;
+
+
+  if(z!=nullptr)
+    y = z->m_pLeftChild;
+  if(y!= nullptr)
+    x = y->m_pLeftChild;
+  if(x != nullptr)
+    T1 = x->m_pLeftChild;
+  if(x != nullptr)
+    T2 = x->m_pRightChild;
+  if(y != nullptr)
+    T3 = y->m_pRightChild;
+  if(z != nullptr)
+    T4 = z->m_pRightChild;
+
   AVLNode * auxParent = z->m_pParent;
-
-
   //Changes to T1
+  if(T1 != nullptr)
   T1->m_pParent = x;
   //Changes to T2
+  if(T2 != nullptr)
   T2->m_pParent = x;
 
   //Changes to T3
+  if(T3 != nullptr)
   T3->m_pParent = z;
 
   //Changes to T4
+  if(T4 != nullptr)
   T4->m_pParent = z;
 
   //Changes to x
-  x->m_pParent = y;
-  x->m_pLeftChild = T1;
-  x->m_pRightChild = T2;
-  x->m_Hight++; //Think about this.
-
+  if(x != nullptr){
+    x->m_pParent = y;
+    x->m_pLeftChild = T1;
+    x->m_pRightChild = T2;
+  }
   //Changes to z
-  z->m_pParent = z;
+  if(z != nullptr){
+  z->m_pParent = y;
   z->m_pLeftChild = T3;
   z->m_pRightChild = T4;
-  z->m_Hight--; //Think about this
-
+  }
   //Changes to y
-  y->m_pParent = auxParent;
-  y->m_pLeftChild = x;
-  y->m_pRightChild = z;
-  y->m_Hight++; //Think About this.
-
+  if(y != nullptr){
+    y->m_pParent = auxParent;
+    y->m_pLeftChild = x;
+    y->m_pRightChild = z;
+  }
   //changes to the exparent of z
   if(auxParent != nullptr){
     if(auxParent->m_pLeftChild == z)
@@ -360,50 +379,74 @@ void AVLNode::RightRotate(void){
     else
       printf("You should have not enterd here");
   }
+  if(x != nullptr)
+  x->fixHightUpwards();
+  if(y != nullptr)
+  y->fixHightUpwards();
+  if(z != nullptr)
+  z->fixHightUpwards();
 }
 
 //! Nomenclature based on https://www.geeksforgeeks.org/avl-tree-set-1-insertion/
 void AVLNode::LeftRotate(void){
   AVLNode * z = this;
-  AVLNode * y = z->m_pRightChild;
-  AVLNode * x = y->m_pRightChild;
+  AVLNode * y = nullptr;
+  AVLNode * x = nullptr;
 
-  AVLNode * T1 = z->m_pLeftChild;
-  AVLNode * T2 = y->m_pLeftChild;
-  AVLNode * T3 = x->m_pLeftChild;
-  AVLNode * T4 = x->m_pRightChild;
+  AVLNode * T1 = nullptr;
+  AVLNode * T2 = nullptr;
+  AVLNode * T3 = nullptr;
+  AVLNode * T4 = nullptr;
+
+
+  if(z != nullptr)
+    y = z->m_pRightChild;
+  if(y != nullptr)
+    x = y->m_pRightChild;
+  if(z != nullptr)
+    T1 = z->m_pLeftChild;
+  if(y != nullptr)
+    T2 = y->m_pLeftChild;
+  if(x != nullptr)
+    T3 = x->m_pLeftChild;
+  if(z != nullptr)
+    T4 = x->m_pRightChild;
+
   AVLNode * auxParent = z->m_pParent;
-
   //Changes to T1
-  T1->m_pParent = z;
+  if(T1 != nullptr)
+    T1->m_pParent = z;
 
   //Changes to T2
-  T2->m_pParent = z;
+  if(T2 != nullptr)
+    T2->m_pParent = z;
 
   //Changes to T3
-  T3->m_pParent = x;
+  if(T3 != nullptr)
+    T3->m_pParent = x;
 
   //Changes to T4
-  T4->m_pParent = x;
+  if(T4 != nullptr)
+    T4->m_pParent = x;
 
   //Changes to z
-  z->m_pParent = y;
-  z->m_pLeftChild = T1;
-  z->m_pRightChild = T2;
-  z->m_Hight--; //think about this
-
+  if(z !=nullptr){
+    z->m_pParent = y;
+    z->m_pLeftChild = T1;
+    z->m_pRightChild = T2;
+  }
   //Changes to x
+  if(x != nullptr){
   x->m_pParent = y;
   x->m_pLeftChild = T3;
   x->m_pRightChild = T4;
-  z->m_Hight++; //think about this
-
+  }
   //Changes to y
+  if(y != nullptr){
   y->m_pParent = auxParent;
   y->m_pLeftChild = z;
   y->m_pRightChild = x;
-  y->m_Hight++; //think about this
-
+  }
   //Changes to the Parent
   if(auxParent != nullptr){
     if(auxParent->m_pLeftChild == z)
@@ -413,6 +456,12 @@ void AVLNode::LeftRotate(void){
     else
       printf("You should have not enterd here");
   }
+  if(x != nullptr)
+  x->fixHightUpwards();
+  if(y != nullptr)
+  y->fixHightUpwards();
+  if(z!= nullptr)
+  z->fixHightUpwards();
 }
 AVLNode * AVLNode::AVL_GetRoot(void){
   AVLNode * parentNode = this->m_pParent;

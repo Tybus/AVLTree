@@ -30,9 +30,15 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-fexceptions" />
+			<Add option="-std=c++14 -Wall" />
+			<Add directory="src" />
+			<Add directory="include" />
 		</Compiler>
-		<Unit filename="main.cpp" />
+		<Unit filename="include/AVLNode.h" />
+		<Unit filename="include/AVLTree.h" />
+		<Unit filename="src/AVLNode.cpp" />
+		<Unit filename="src/AVLTree.cpp" />
+		<Unit filename="src/main_unittest.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

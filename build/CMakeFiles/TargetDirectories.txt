@@ -1,0 +1,7 @@
+/home/david/Documents/Universidad/Labo de Programacion/AVLTree/AVLTree/build/CMakeFiles/install.dir
+/home/david/Documents/Universidad/Labo de Programacion/AVLTree/AVLTree/build/CMakeFiles/list_install_components.dir
+/home/david/Documents/Universidad/Labo de Programacion/AVLTree/AVLTree/build/CMakeFiles/rebuild_cache.dir
+/home/david/Documents/Universidad/Labo de Programacion/AVLTree/AVLTree/build/CMakeFiles/edit_cache.dir
+/home/david/Documents/Universidad/Labo de Programacion/AVLTree/AVLTree/build/CMakeFiles/avltree.dir
+/home/david/Documents/Universidad/Labo de Programacion/AVLTree/AVLTree/build/CMakeFiles/install/strip.dir
+/home/david/Documents/Universidad/Labo de Programacion/AVLTree/AVLTree/build/CMakeFiles/install/local.dir

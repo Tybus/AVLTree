@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace>
+  <WorkspaceParserFlags flags="2"/>
+  <WorkspaceParserPaths>
+    <Include Path="include/"/>
+    <Include Path="src/"/>
+  </WorkspaceParserPaths>
+  <Environment Name="&lt;Use Defaults&gt;"/>
+  <WorkspaceParserMacros/>
+</Workspace>

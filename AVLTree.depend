@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1537587381 source:/home/david/Documents/Universidad/Labo de Programacion/AVLTree/AVLTree/src/AVLNode.cpp
+	"../include/AVLNode.h"
+
+1537576570 /home/david/Documents/Universidad/Labo de Programacion/AVLTree/AVLTree/include/AVLNode.h
+	<string>
+
+1537577671 source:/home/david/Documents/Universidad/Labo de Programacion/AVLTree/AVLTree/src/AVLTree.cpp
+	"AVLTree.h"
+
+1537492672 /home/david/Documents/Universidad/Labo de Programacion/AVLTree/AVLTree/include/AVLTree.h
+	"AVLNode.h"
+	<string>
+
+1537577831 source:/home/david/Documents/Universidad/Labo de Programacion/AVLTree/AVLTree/src/main_unittest.cpp
+	"AVLTree.h"
+	<iostream>
+
