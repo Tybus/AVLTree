@@ -409,7 +409,7 @@ void AVLNode::LeftRotate(void){
     T2 = y->m_pLeftChild;
   if(x != nullptr)
     T3 = x->m_pLeftChild;
-  if(z != nullptr)
+  if(x != nullptr)
     T4 = x->m_pRightChild;
 
   AVLNode * auxParent = z->m_pParent;
@@ -469,6 +469,19 @@ AVLNode * AVLNode::AVL_GetRoot(void){
     return this;
   else
     return parentNode->AVL_GetRoot();
+}
+
+uint64_t AVLNode::getMax(void){
+  if(this->m_pRightChild == nullptr)
+    return this->m_NameAndID.Cedula;
+  else
+    return this->m_pRightChild->getMax();
+}
+uint64_t AVLNode::getMin(void){
+  if(this->m_pLeftChild == nullptr)
+    return this->m_NameAndID.Cedula;
+  else
+    return this->m_pLeftChild->getMin();
 }
 /* Not Sure if needed
 AVLNode::AVLInsert(AVLNode * i_AVLtoInsert){

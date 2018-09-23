@@ -36,7 +36,7 @@ int main(void){
   catch( const std::out_of_range &e){
     std::cerr << e.what();
   }
-  //Out of bounds. i_ammount > i_aNameAndID 
+  //Out of bounds. i_ammount > i_aNameAndID Range
   i_ammount  = 7;
   try{
     AVLTree oobTree(i_ammount, i_aNameAndID);

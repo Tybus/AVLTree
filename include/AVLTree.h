@@ -1,9 +1,14 @@
 #ifndef AVLTREE_H
 #define AVLTREE_H
+#include <stdexcept>
+#include <iostream>
 #include "AVLNode.h"
 #include <string>
+
 class AVLTree{
 public:
+	//! Creates a empty AVLTREE
+	AVLTree();
 	//! Creates a AVLTree based on arrays of strings and cedulas
 	AVLTree(int i_ammount, AVLNode::NameAndID * i_aNameAndID);
 	//! Creates an AVLTree based on a String and a Cedula
@@ -18,6 +23,10 @@ public:
 	uint64_t AVLTreeGetSize(void);
 	//! Returns the Maxheight of the AVL Tree.
 	uint64_t AVLTreeGetMaxHeight(void);
+	//!Returns the higuestValue
+	uint64_t AVLTreeGetHighest(void);
+	//!Returns the LowestValue
+	uint64_t AVLTreeGetLowest(void);
 
 private:
 	AVLNode * m_rootNode;

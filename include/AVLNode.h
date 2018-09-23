@@ -68,7 +68,7 @@ private:
 	//! Removes an entry using BST with a Cedula.
 	AVLNode * BST_Remove(uint32_t i_Cedula);
 	//! Searches the first unbalanced node based on this node.
-AVLNode * AVL_SearchUnbalanced(Direction * o_aDirection = nullptr);
+	AVLNode * AVL_SearchUnbalanced(Direction * o_aDirection = nullptr);
 	//! Searches the first unbalanced node from the specified node.
 	AVLNode * AVL_SearchUnbalanced(AVLNode * i_StartingNode);
 	//! Searches the Tree.
@@ -87,5 +87,9 @@ AVLNode * AVL_SearchUnbalanced(Direction * o_aDirection = nullptr);
 	void LeftRotate(void);
 	//! Rotates the node to the right
 	void RightRotate(void);
+	//! GetTheMaxValue;
+	uint64_t getMax(void);
+	//!GetTheMinValue
+	uint64_t getMin(void);
 };
 #endif //AVLNODE_H

@@ -1,0 +1,10 @@
+10 Nodes: 
+21ms
+100 Nodes: 
+147ms
+1000 Nodes: 
+736ms
+5000 Nodes: 
+10659ms
+10000 Nodes: 
+23402ms
