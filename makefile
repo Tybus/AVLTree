@@ -23,7 +23,7 @@ MAIN = ./
 TEST = main_unittest
 all : $(SRC) $(TEST) $(MAIN) unittest main
 
-make_run:
+run:
 	./main.out
 main:
 	$(CC) $(CFLAGS) $(IDIR) -o main.out $(OBJ)AVLTree.o $(OBJ)AVLNode.o $(OBJ)main.o	
